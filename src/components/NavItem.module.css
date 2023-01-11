@@ -1,0 +1,43 @@
+:root {
+  --nav_link_gap: 1rem;
+  --nav_link_px: 2rem;
+  --nav_link_py: 1rem;
+  --icon_size: 24px;
+}
+
+.nav_link {
+  width: 100%;
+  display: flex;
+  gap: var(--nav_link_gap);
+
+  text-decoration: none;
+  align-items: center;
+  padding: var(--nav_link_py) var(--nav_link_px);
+  font-size: 1.1rem;
+
+  transition: all 0.2s ease-in-out;
+}
+
+.nav_link:hover {
+  background-color: #f5f5f5;
+}
+
+.nav_link.active {
+  background-color: var(--brand-pink) 11;
+}
+
+.nav_link span {
+  background: linear-gradient(160deg, var(--brand-pink) 40%, var(--brand-yellow) 90%);
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  transition: all 0.2s ease-in-out;
+}
+
+.nav_link.active span {
+  color: transparent;
+}
+
+.icon {
+  transition: all 0.2s ease-in-out;
+}

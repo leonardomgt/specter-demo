@@ -1,0 +1,8 @@
+.companies_feed {
+  --feed_spacing: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  gap: var(--feed_spacing);
+  padding: 0 var(--feed_spacing);
+}

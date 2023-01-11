@@ -1,16 +1,27 @@
-import { useCompanies } from "src/api/companies";
+// App.js
+import { Routes, Route } from "react-router-dom";
 
-function App() {
-  const { isLoading, data } = useCompanies();
+import Layout from "./layout/Layout";
+import CompanyPage from "./pages/Company";
+import CompanySignalsPage from "./pages/CompanySignals";
+import Page404 from "./pages/Page404";
+import StrategicIntelligenceSignalsPage from "./pages/StrategicIntelligenceSignals";
+import TalentSignalsPage from "./pages/TalentSignals";
 
+import "./App.css";
+
+const App = () => {
   return (
-    <div>
-      <h1>Good luck!</h1>
-
-      <p>Here is an example of data we hold on a company</p>
-      <pre>{!isLoading && JSON.stringify(data?.slice(0, 1), null, 2)}</pre>
-    </div>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<CompanySignalsPage />} />
+        <Route path="/talent" element={<TalentSignalsPage />} />
+        <Route path="/si" element={<StrategicIntelligenceSignalsPage />} />
+        <Route path="/company" element={<CompanyPage />} />
+        <Route path="*" element={<Page404 />} />
+      </Routes>
+    </Layout>
   );
-}
+};
 
 export default App;

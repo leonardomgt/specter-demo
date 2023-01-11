@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--separator-color);
+  padding: 1rem 1.5rem;
+}
+
+.container:last-child {
+  border-right: none;
+}
+
+.label {
+  font-size: 0.8rem;
+  color: #999;
+  margin-bottom: 0.5rem;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    "current chart"
+    "monthly chart";
+  gap: 0.5rem;
+}
+
+.chart {
+  grid-area: chart;
+}
+
+.currentValue {
+  grid-area: current;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.monthlyValue {
+  grid-area: monthly;
+  font-size: 0.7rem;
+  font-weight: 200;
+  display: flex;
+  align-items: center;
+  margin-bottom: 3px;
+  color: var(--danger);
+}
+
+.monthlyValue.success {
+  color: var(--success);
+}

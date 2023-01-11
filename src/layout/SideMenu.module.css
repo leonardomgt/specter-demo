@@ -1,0 +1,36 @@
+.side_menu {
+  --spacing: 3rem;
+
+  grid-area: side;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing) 0;
+  gap: var(--spacing);
+}
+
+.side_menu::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 1rem;
+  bottom: 1rem;
+  width: 1px;
+  background-color: var(--separator-color);
+}
+
+.logo_link {
+  padding: 0 var(--spacing);
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  width: 150px;
+}
+
+.nav_list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

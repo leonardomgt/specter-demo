@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  margin-right: 0.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  /* stroke: var(--text-light); */
+}
+
+.container p {
+  color: var(--text-light);
+}

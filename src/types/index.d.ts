@@ -1,6 +1,6 @@
 export interface Company {
   Rank: number;
-  Domain: string; // this can be used a unique indentifier
+  Domain: string; // this can be used a unique identifier
   Month: string;
   "Company Name": string;
   Website: string;

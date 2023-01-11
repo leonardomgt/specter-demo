@@ -1,0 +1,10 @@
+.nav_group {
+  display: block;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2rem;
+  color: var(--text-light);
+  padding: 0 calc(var(--nav_link_px) + var(--icon_size) + var(--nav_link_gap));
+  margin: 1rem 0;
+}

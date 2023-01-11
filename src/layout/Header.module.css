@@ -1,0 +1,8 @@
+:root {
+  --padding-header: 1rem;
+}
+
+.header {
+  padding: var(--padding-header);
+  padding: 4rem;
+}

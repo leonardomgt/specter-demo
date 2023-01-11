@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 0.2rem;
+}
+
+.container.stacked {
+  flex-direction: column;
+  align-items: initial;
+}
+
+.container:not(.stacked) .label::after {
+  content: ":";
+}
+
+.label {
+  font-size: 0.9em;
+  margin-bottom: 0.5rem;
+  color: var(--text-light);
+  margin: 0;
+}
+
+.stacked .value {
+  font-size: 1.2em;
+  font-weight: 600;
+  margin: 0;
+}

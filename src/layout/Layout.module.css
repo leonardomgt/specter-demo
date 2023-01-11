@@ -1,0 +1,8 @@
+.main {
+  grid-area: main;
+  overflow-y: auto;
+}
+
+.filter_aside {
+  grid-area: filter;
+}
