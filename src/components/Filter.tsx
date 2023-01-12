@@ -1,14 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { MultiSelect, RangeSlider, TextInput } from "@mantine/core";
+import { MultiSelect, TextInput } from "@mantine/core";
 import { useDebouncedValue } from "@mantine/hooks";
 import { IconFilter, IconSearch } from "@tabler/icons";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { employee_count_max, industries } from "src/api/companies";
+import { employee_count_range, founded_year_range, industries } from "src/api/companies";
 import { useRouterParam } from "src/hooks/useRouterParam";
 import { nFormatter } from "src/utils";
 
 import styles from "./Filter.module.css";
+import RangeSlider from "./RangeSlider";
 
 const Filter = () => {
   const [searchParam, setSearchParam] = useRouterParam("search");
@@ -20,17 +21,17 @@ const Filter = () => {
   }, [value]);
 
   const [industryFilter, setIndustryFilter] = useRouterParam("industry", true);
-  const [employeeCountFilter, setEmployeeCountFilter] = useRouterParam("employee_count", true);
 
+  const [employeeCountFilter, setEmployeeCountFilter] = useRouterParam("employee_count", true);
   const [employeeCountValue, setEmployeeCountValue] = useState<[number, number]>(
-    (employeeCountFilter?.map((v) => parseInt(v, 10)) as [number, number]) ?? [
-      0,
-      employee_count_max,
-    ]
+    (employeeCountFilter?.map((v) => +v) as [number, number]) ?? employee_count_range
   );
 
-  const emplToValue = useCallback((v: number) => Math.log10(v) * 100, []);
-  const valueToEmpl = useCallback((v: number) => 10 ** (v / 100), []);
+  const [foundedYearFilter, setFoundedYearFilter] = useRouterParam("founded_year", true);
+  const [foundedYearValue, setFoundedYearValue] = useState<[number, number]>([
+    Math.max(+(foundedYearFilter ?? founded_year_range)[0], 1950),
+    +(foundedYearFilter ?? founded_year_range)[1],
+  ]);
 
   return (
     <aside className={styles.filter}>
@@ -50,37 +51,40 @@ const Filter = () => {
         searchable
         clearable
       />
-      <div className={styles.employee_count}>
-        <p className={styles.employee_count_label}>Employee count</p>
-        <RangeSlider
-          w={300}
-          value={employeeCountValue?.map(emplToValue) as [number, number]}
-          onChange={(v: [number, number]) =>
-            setEmployeeCountValue(v.map(valueToEmpl) as [number, number])
-          }
-          onChangeEnd={(value: [number, number]) => {
-            const [min, max] = value.map(valueToEmpl);
-
-            if (min === 0 && max === employee_count_max) {
-              setEmployeeCountFilter(null);
-            } else {
-              setEmployeeCountFilter([min, max].map((v) => Math.round(v).toString()));
-            }
-          }}
-          scale={valueToEmpl}
-          color="pink"
-          min={0}
-          max={emplToValue(employee_count_max)}
-          label={(v) => nFormatter(v, 0)}
-          marks={[
-            { value: 0, label: "1" },
-            { value: emplToValue(10), label: "10" },
-            { value: emplToValue(100), label: "100" },
-            { value: emplToValue(1000), label: "1k" },
-            { value: emplToValue(10000), label: "10k" },
-          ]}
-        />
-      </div>
+      <RangeSlider
+        label="Founded year"
+        value={foundedYearValue}
+        onChange={setFoundedYearValue}
+        onChangeEnd={setFoundedYearFilter}
+        min={1950}
+        openMin={founded_year_range[0]}
+        max={founded_year_range[1]}
+        marks={[
+          { value: 1950, label: "<1950" },
+          { value: 2000, label: "2000" },
+          { value: 2020, label: "2020" },
+        ]}
+        labelFormatter={(v) => v.toFixed(0)}
+        rangeMinDiff={1}
+      />
+      <RangeSlider
+        label="Employee count"
+        value={employeeCountValue}
+        onChange={setEmployeeCountValue}
+        onChangeEnd={setEmployeeCountFilter}
+        min={employee_count_range[0]}
+        max={employee_count_range[1]}
+        marks={[
+          { value: 0, label: "1" },
+          { value: 10, label: "10" },
+          { value: 100, label: "100" },
+          { value: 1000, label: "1k" },
+          { value: 10000, label: "10k" },
+        ]}
+        labelFormatter={(v) => nFormatter(v, 0)}
+        logBase={2}
+        rangeMinDiff={0.2}
+      />
     </aside>
   );
 };

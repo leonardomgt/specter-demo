@@ -1,5 +1,5 @@
 import { Skeleton } from "@mantine/core";
-import { IconBuildingFactory2, IconMapPin } from "@tabler/icons";
+import { IconBuildingFactory2, IconMapPin, IconRocket } from "@tabler/icons";
 import { Link } from "react-router-dom";
 
 import { Company } from "src/types";
@@ -28,6 +28,7 @@ export function CompanyCard({ company }: CompanyCardProps) {
     "HQ Location": HQLocation,
     "HQ Region": HQRegion,
     Industry,
+    "Founded Date": FoundedDate,
   } = company;
 
   return (
@@ -42,6 +43,7 @@ export function CompanyCard({ company }: CompanyCardProps) {
           value={(HQLocation || HQRegion).split(", ").slice(0, 2).join(", ")}
         />
         <IconData Icon={IconBuildingFactory2} value={Industry} />
+        <IconData Icon={IconRocket} value={FoundedDate} />
       </div>
 
       <div className={styles.charts}>
@@ -54,9 +56,6 @@ export function CompanyCard({ company }: CompanyCardProps) {
           />
         ))}
       </div>
-      {/* <ChartData label="Employee Count" data={data} /> */}
-
-      {/* <LabelValue label="Founded Date" value={company["Founded Date"]} stacked /> */}
     </Link>
   );
 }

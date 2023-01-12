@@ -17,8 +17,11 @@ export const industries = data.reduce((acc, company) => {
   return acc;
 }, new Set<Company["Industry"]>());
 
-const employees_count = data.map((company) => company["Employee Count"]);
-export const employee_count_max = Math.max(...employees_count);
+const employees_count = data.map((company) => company["Employee Count"]).filter(Boolean);
+export const employee_count_range = [Math.min(...employees_count), Math.max(...employees_count)];
+
+const founded_year = data.map((company) => company["Founded Date"]).filter(Boolean);
+export const founded_year_range = [Math.min(...founded_year), Math.max(...founded_year)];
 
 export function getPage({
   page_number,
@@ -81,16 +84,20 @@ export function useInfiniteCompanies<T extends Element = HTMLElement>() {
   const [search] = useRouterParam("search");
   const [industryFilter] = useRouterParam("industry", true);
   const [employeeCountFilter] = useRouterParam("employee_count", true);
+  const [foundedYearFilter] = useRouterParam("founded_year", true);
 
   const filters = {
     ...(industryFilter && { Industry: industryFilter }),
     ...(employeeCountFilter && {
       "Employee Count": employeeCountFilter.map((v) => +v) as [number, number],
     }),
+    ...(foundedYearFilter && {
+      "Founded Date": foundedYearFilter.map((v) => +v) as [number, number],
+    }),
   };
 
   const { data, fetchNextPage, isLoading, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
-    queryKey: ["companyData", search, industryFilter, employeeCountFilter],
+    queryKey: ["companyData", search, industryFilter, employeeCountFilter, foundedYearFilter],
     queryFn: ({ pageParam = 0 }) => getPage({ page_number: pageParam, search, filters }),
     getNextPageParam: (lastPage, allPages) => {
       const nextPage = allPages.length + 1;

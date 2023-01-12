@@ -1,0 +1,9 @@
+.container {
+  padding: 0 1rem;
+}
+
+.label {
+  font-size: 0.8rem;
+  margin-bottom: 0.3rem;
+  color: var(--text-light);
+}
