@@ -12,49 +12,20 @@ type CompanyCardProps = {
   company: Company;
 };
 
-type ChartDefinition = { currentValue: string; points?: string; unit?: string; color?: string };
-
-const CHARTS: ChartDefinition[] = [
-  { currentValue: "Employee Count", points: "Employees", color: "#ee4e95" },
-  { currentValue: "Web Visits", color: "#fcc301" },
-  { currentValue: "LinkedIn", unit: "Followers", color: "#0077b5" },
-  { currentValue: "Twitter", unit: "Followers", color: "#1DA1F2" },
-];
-
 export function CompanyCard({ company }: CompanyCardProps) {
-  const {
-    "Company Name": Name,
-    Rank,
-    "HQ Location": HQLocation,
-    "HQ Region": HQRegion,
-    Industry,
-    "Founded Date": FoundedDate,
-  } = company;
+  const { "Company Name": Name, Rank } = company;
 
   return (
-    <Link className={styles.card} to="/company">
+    <Link className={styles.card} to={`/company/${company.Rank}`}>
       <div className={styles.header}>
         <small className={styles.rank}>{Rank}</small>
         <h2 className={styles.title}>{Name}</h2>
       </div>
       <div className={styles.info}>
-        <IconData
-          Icon={IconMapPin}
-          value={(HQLocation || HQRegion).split(", ").slice(0, 2).join(", ")}
-        />
-        <IconData Icon={IconBuildingFactory2} value={Industry} />
-        <IconData Icon={IconRocket} value={FoundedDate} />
+        <CompanyBasicInfo company={company} />
       </div>
-
       <div className={styles.charts}>
-        {CHARTS.map((chart) => (
-          <ChartData
-            key={chart.currentValue}
-            label={`${chart.currentValue}${chart.unit ? ` (${chart.unit})` : ""}`}
-            data={getChartData(company, chart)}
-            color={chart.color}
-          />
-        ))}
+        <CompanyCharts company={company} limit={4} />
       </div>
     </Link>
   );
@@ -62,11 +33,13 @@ export function CompanyCard({ company }: CompanyCardProps) {
 
 function getChartData(company: Company, chart: ChartDefinition, nPoints: number = 6) {
   const { currentValue: currentValueKey, points = currentValueKey, unit = "" } = chart;
-  console.warn(`${currentValueKey}${unit ? `- ${unit}` : ""}`);
 
-  const currentValue = company[`${currentValueKey}${unit ? ` - ${unit}` : ""}` as keyof Company];
+  const currentValue: number =
+    company[`${currentValueKey}${unit ? ` - ${unit}` : ""}` as keyof Company];
 
-  const getMonthValue = (i: number) => {
+  if (!currentValue) return;
+
+  const getMonthValue = (i: number): number => {
     let monthIdx = `${i + 1} Months`;
 
     if (i === 0) monthIdx = "Monthly";
@@ -104,5 +77,63 @@ export const CompanyCardSkeleton = () => {
       <Skeleton className={styles.s_chart3} radius="md" />
       <Skeleton className={styles.s_chart4} radius="md" />
     </div>
+  );
+};
+
+export const CompanyBasicInfo = ({ company }: { company: Company }) => {
+  const {
+    "HQ Location": HQLocation,
+    "HQ Region": HQRegion,
+    Industry,
+    "Founded Date": FoundedDate,
+  } = company;
+
+  return (
+    <>
+      <IconData
+        Icon={IconMapPin}
+        value={(HQLocation || HQRegion).split(", ").slice(0, 2).join(", ")}
+      />
+      <IconData Icon={IconBuildingFactory2} value={Industry} />
+      <IconData Icon={IconRocket} value={FoundedDate} />
+    </>
+  );
+};
+
+type ChartDefinition = { currentValue: string; points?: string; unit?: string; color?: string };
+
+const CHARTS: ChartDefinition[] = [
+  { currentValue: "Employee Count", points: "Employees", color: "#ee4e95" },
+  { currentValue: "Web Visits", color: "#fcc301" },
+  { currentValue: "LinkedIn", unit: "Followers", color: "#0077b5" },
+  { currentValue: "Twitter", unit: "Followers", color: "#1DA1F2" },
+  { currentValue: "Instagram", unit: "Followers", color: "#C13584" },
+  { currentValue: "Google Play", unit: "Reviews", color: "#0F9D58" },
+  { currentValue: "iTunes", unit: "Reviews", color: "#000" },
+];
+
+export const CompanyCharts = ({
+  company,
+  limit = CHARTS.length,
+}: {
+  company: Company;
+  limit?: number;
+}) => {
+  const chartsData = CHARTS.map((chart) => ({
+    data: getChartData(company, chart),
+    chart,
+  })).filter(({ data }) => !!data);
+
+  return (
+    <>
+      {chartsData.slice(0, limit).map(({ data, chart }) => (
+        <ChartData
+          key={chart.currentValue}
+          label={`${chart.currentValue}${chart.unit ? ` (${chart.unit})` : ""}`}
+          data={data}
+          color={chart.color}
+        />
+      ))}
+    </>
   );
 };

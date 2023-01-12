@@ -26,3 +26,10 @@ export const nFormatter = (num: number, digits: number) => {
 export const logBaseN = (n: number, base: number) => {
   return Math.log(n) / Math.log(base);
 };
+
+export const groupBy = <T extends Record<string, any>>(arr: T[], prop: string) =>
+  arr.reduce((acc, val) => {
+    // eslint-disable-next-line functional/immutable-data
+    (acc[val[prop]] = acc[val[prop]] || []).push(val);
+    return acc;
+  }, {} as Record<string, T[]>);

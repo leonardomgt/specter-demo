@@ -1,8 +1,8 @@
 .container {
   display: flex;
   flex-direction: column;
-  border-right: 1px solid var(--separator-color);
-  padding: 1rem 1.5rem;
+  /* border-right: 1px solid var(--separator-color); */
+  /* padding: 1rem 1.5rem; */
 }
 
 .container:last-child {
@@ -27,6 +27,7 @@
 
 .chart {
   grid-area: chart;
+  cursor: pointer !important;
 }
 
 .currentValue {

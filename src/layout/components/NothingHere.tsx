@@ -2,7 +2,7 @@ const NothingHere = () => {
   return (
     <div
       style={{
-        paddingLeft: "4rem",
+        padding: "4rem",
         color: "#888",
       }}
     >

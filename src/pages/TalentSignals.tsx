@@ -1,7 +1,13 @@
+import Header from "src/layout/Header";
 import NothingHere from "src/layout/components/NothingHere";
 
 const TalentSignalsPage = () => {
-  return <NothingHere />;
+  return (
+    <>
+      <Header />
+      <NothingHere />
+    </>
+  );
 };
 
 export default TalentSignalsPage;

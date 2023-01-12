@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  gap: 1rem;
+  margin-left: auto;
+}
+
+.icon_link {
+  display: flex;
+  padding: 0.3rem;
+}

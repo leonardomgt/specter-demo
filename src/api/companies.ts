@@ -11,6 +11,7 @@ import companies from "../api/companies.json";
 // TODO: Remove this at the end. This is just for shrink the dataset for testing purposes.
 // const data = paginate(companies as Company[], 50, 0);
 const data = companies as Company[];
+const LOADING_DELAY = 200;
 
 export const industries = data.reduce((acc, company) => {
   acc.add(company.Industry);
@@ -71,7 +72,7 @@ export function getPage({
   return new Promise<Company[]>((resolve) => {
     setTimeout(() => {
       resolve(page);
-    }, 500);
+    }, LOADING_DELAY);
   });
   // return Promise.resolve(page);
 }
@@ -99,10 +100,7 @@ export function useInfiniteCompanies<T extends Element = HTMLElement>() {
   const { data, fetchNextPage, isLoading, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
     queryKey: ["companyData", search, industryFilter, employeeCountFilter, foundedYearFilter],
     queryFn: ({ pageParam = 0 }) => getPage({ page_number: pageParam, search, filters }),
-    getNextPageParam: (lastPage, allPages) => {
-      const nextPage = allPages.length + 1;
-      return lastPage.length !== 0 ? nextPage : undefined;
-    },
+    getNextPageParam: (lastPage, allPages) => (lastPage.length !== 0 ? allPages.length : undefined),
   });
 
   const observerRef = useIntersectionObserver<T>(() => hasNextPage && fetchNextPage());
@@ -115,3 +113,14 @@ export function useInfiniteCompanies<T extends Element = HTMLElement>() {
     observerRef,
   };
 }
+
+export const useCompany = (id?: string) => {
+  return useQuery(["company", id], () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(data.find((company) => company.Rank.toString() === id) as Company);
+      }, LOADING_DELAY);
+    }) as Promise<Company>;
+    // return Promise.resolve(data.find((company) => company.Rank.toString() === id));
+  });
+};

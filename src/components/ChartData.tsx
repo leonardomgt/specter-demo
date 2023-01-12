@@ -8,7 +8,7 @@ import styles from "./ChartData.module.css";
 
 type Props = {
   label: string;
-  data: {
+  data?: {
     entries: { name?: string; value: number }[];
     currentValue: number;
     monthlyValue: number;
@@ -17,6 +17,8 @@ type Props = {
 };
 
 function ChartData({ label, data, color = "#8884d8" }: Props) {
+  if (!data) return null;
+
   const { currentValue, monthlyValue, entries } = data;
   const improvementPercentage = (100 * monthlyValue) / currentValue;
 
