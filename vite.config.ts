@@ -6,6 +6,7 @@ import checker from "vite-plugin-checker";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/specter-demo/",
   resolve: {
     alias: [{ find: "src", replacement: path.resolve(__dirname, "src") }],
   },
