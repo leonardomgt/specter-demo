@@ -1,3 +1,7 @@
+:root {
+  --padding-content: 2rem;
+}
+
 .main {
   grid-area: main;
   overflow-y: auto;

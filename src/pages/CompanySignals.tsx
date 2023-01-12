@@ -1,5 +1,6 @@
 import { useInfiniteCompanies } from "src/api/companies";
-import { CompanyCard } from "src/components/CompanyCard";
+import { CompanyCard, CompanyCardSkeleton } from "src/components/CompanyCard";
+import EndOfFeed from "src/layout/components/EndOfFeed";
 
 import styles from "./CompanySignals.module.css";
 
@@ -7,18 +8,24 @@ const CompanySignalsPage = () => {
   const { data, observerRef, isFetchingNextPage, hasNextPage, isLoading } =
     useInfiniteCompanies<HTMLDivElement>();
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <section className={styles.companies_feed}>
-      {data?.pages.map((page) =>
-        page.map((company) => <CompanyCard key={company.Domain} company={company} />)
+      {isLoading ? (
+        <>
+          <CompanyCardSkeleton />
+          <CompanyCardSkeleton />
+          <CompanyCardSkeleton />
+        </>
+      ) : (
+        <>
+          {data?.pages.map((page) =>
+            page.map((company) => <CompanyCard key={company.Domain} company={company} />)
+          )}
+          <div ref={observerRef}>
+            {isFetchingNextPage && hasNextPage ? <CompanyCardSkeleton /> : <EndOfFeed />}
+          </div>
+        </>
       )}
-      <div ref={observerRef}>
-        {isFetchingNextPage && hasNextPage ? "Loading..." : "No search left"}
-      </div>
     </section>
   );
 };

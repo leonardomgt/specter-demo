@@ -45,3 +45,54 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.skeleton {
+  display: grid;
+  height: 227px;
+  gap: 0.5rem;
+  padding: 1rem;
+  grid-template-columns: 50px 200px 50px repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr) 3fr;
+  grid-template-areas:
+    "rank name name . . . ."
+    "info1 info1 . chart1 chart2 chart3 chart4"
+    "info2 info2 . chart1 chart2 chart3 chart4"
+    "info3 info3 . chart1 chart2 chart3 chart4"
+    ".     .     . chart1 chart2 chart3 chart4";
+}
+
+.s_rank {
+  grid-area: rank;
+}
+
+.s_name {
+  grid-area: name;
+}
+
+.s_info1 {
+  grid-area: info1;
+}
+
+.s_info2 {
+  grid-area: info2;
+}
+
+.s_info3 {
+  grid-area: info3;
+}
+
+.s_chart1 {
+  grid-area: chart1;
+}
+
+.s_chart2 {
+  grid-area: chart2;
+}
+
+.s_chart3 {
+  grid-area: chart3;
+}
+
+.s_chart4 {
+  grid-area: chart4;
+}

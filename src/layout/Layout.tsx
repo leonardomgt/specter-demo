@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 
+import Filter from "src/components/Filter";
+
 import Header from "./Header";
 import styles from "./Layout.module.css";
 import SideMenu from "./SideMenu";
@@ -14,7 +16,7 @@ const Layout = ({ children }: LayoutProps) => {
       <SideMenu />
       <main className={styles.main}>
         <Header />
-        <aside className={styles.filter_aside}></aside>
+        <Filter />
         {children}
       </main>
     </>

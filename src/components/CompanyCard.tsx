@@ -1,3 +1,4 @@
+import { Skeleton } from "@mantine/core";
 import { IconBuildingFactory2, IconMapPin } from "@tabler/icons";
 import { Link } from "react-router-dom";
 
@@ -90,3 +91,19 @@ function getChartData(company: Company, chart: ChartDefinition, nPoints: number 
     entries: [{ value: baseValue }, ...data].reverse(),
   };
 }
+
+export const CompanyCardSkeleton = () => {
+  return (
+    <div className={styles.skeleton}>
+      <Skeleton className={styles.s_rank} radius="md" />
+      <Skeleton className={styles.s_name} radius="md" />
+      <Skeleton className={styles.s_info1} radius="md" />
+      <Skeleton className={styles.s_info2} radius="md" />
+      <Skeleton className={styles.s_info3} radius="md" />
+      <Skeleton className={styles.s_chart1} radius="md" />
+      <Skeleton className={styles.s_chart2} radius="md" />
+      <Skeleton className={styles.s_chart3} radius="md" />
+      <Skeleton className={styles.s_chart4} radius="md" />
+    </div>
+  );
+};

@@ -1,0 +1,21 @@
+.filter {
+  padding: var(--padding-content);
+
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.industry_filter {
+  min-width: 250px;
+}
+
+.employee_count {
+  margin-left: auto;
+}
+
+.employee_count_label {
+  font-size: 0.8rem;
+  margin-bottom: 0.3rem;
+  color: var(--text-light);
+}

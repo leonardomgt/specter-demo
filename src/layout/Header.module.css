@@ -1,8 +1,18 @@
-:root {
-  --padding-header: 1rem;
+.header {
+  padding: var(--padding-content);
+  position: relative;
 }
 
-.header {
-  padding: var(--padding-header);
-  padding: 4rem;
+.title {
+  padding: 0 2rem;
+}
+
+.header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 1rem;
+  right: 1rem;
+  height: 1px;
+  background-color: var(--separator-color);
 }

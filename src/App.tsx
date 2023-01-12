@@ -1,5 +1,5 @@
 // App.js
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import Layout from "./layout/Layout";
 import CompanyPage from "./pages/Company";
@@ -14,7 +14,8 @@ const App = () => {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<CompanySignalsPage />} />
+        <Route path="/" element={<Navigate replace to="/companies" />} />
+        <Route path="/companies" element={<CompanySignalsPage />} />
         <Route path="/talent" element={<TalentSignalsPage />} />
         <Route path="/si" element={<StrategicIntelligenceSignalsPage />} />
         <Route path="/company" element={<CompanyPage />} />
