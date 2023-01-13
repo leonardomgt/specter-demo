@@ -22,7 +22,7 @@ export function CompanyCard({ company }: CompanyCardProps) {
   const isLG = useMatchBreakpoint("lg");
   const isXL = useMatchBreakpoint("xl");
 
-  const nCharts = isXL ? 4 : isLG ? 3 : isMD ? 2 : isSM ? 3 : isXS ? 2 : 2;
+  const nCharts = isXL ? 4 : isLG ? 3 : isMD ? 2 : isSM ? 3 : isXS ? 2 : 1;
   return (
     <Link className={cn(styles.card, { [styles.mobile]: !isMD })} to={`/company/${company.Rank}`}>
       <div className={styles.header}>

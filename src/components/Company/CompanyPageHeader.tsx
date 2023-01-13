@@ -29,18 +29,22 @@ export const CompanyPageHeader = ({ company }: { company: Company }) => {
       <h1 className={cn(styles.title, { [styles.mobile]: !isMD, [styles.tablet]: !isLG })}>
         {Name}
       </h1>
-      {Rank && (
-        <Tooltip label="Previous">
-          <Link to={`/company/${Rank - 1}`}>
-            <IconChevronLeft color="#ee4e95" size={40} />
-          </Link>
-        </Tooltip>
+      {isMD && (
+        <>
+          {Rank && (
+            <Tooltip label="Previous">
+              <Link to={`/company/${Rank - 1}`}>
+                <IconChevronLeft color="#ee4e95" size={40} />
+              </Link>
+            </Tooltip>
+          )}
+          <Tooltip label="Next">
+            <Link to={`/company/${Rank + 1}`}>
+              <IconChevronRight color="#ee4e95" size={40} />
+            </Link>
+          </Tooltip>
+        </>
       )}
-      <Tooltip label="Next">
-        <Link to={`/company/${Rank + 1}`}>
-          <IconChevronRight color="#ee4e95" size={40} />
-        </Link>
-      </Tooltip>
     </>
   );
 };

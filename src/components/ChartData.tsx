@@ -1,6 +1,6 @@
 import { IconArrowDown, IconArrowUp } from "@tabler/icons";
 import cn from "classnames";
-import { AreaChart, Area } from "recharts";
+import { AreaChart, Area, ResponsiveContainer } from "recharts";
 
 import { nFormatter } from "src/utils";
 
@@ -41,9 +41,11 @@ function ChartData({ label, data, color = "#8884d8" }: Props) {
           )}
           {Math.abs(improvementPercentage).toFixed(2)}% last month
         </span>
-        <AreaChart className={styles.chart} width={100} height={100} data={entries}>
-          <Area type="monotone" dataKey="value" stroke={color} fill={color} />
-        </AreaChart>
+        <ResponsiveContainer minWidth={100} height={100}>
+          <AreaChart className={styles.chart} data={entries}>
+            <Area type="monotone" dataKey="value" stroke={color} fill={color} />
+          </AreaChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );

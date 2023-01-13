@@ -56,7 +56,7 @@ export const CompanyPageContent = ({ company }: { company: Company }) => {
         <SocialLinks company={company} />
       </div>
       <p className={cn(styles.description, { [styles.mobile]: !isLG })}>{Description}</p>
-      <div className={styles.more_info}>
+      <div className={cn(styles.more_info, { [styles.mobile]: !isLG })}>
         <div className={styles.info}>
           {infoKeys.map((key) => (
             <LabelValue
