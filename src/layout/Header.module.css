@@ -1,6 +1,8 @@
 .header {
   padding: var(--padding-content);
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .title {

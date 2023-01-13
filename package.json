@@ -2,6 +2,7 @@
   "name": "specter-takehome-frontend-challenge",
   "private": true,
   "version": "0.0.0",
+  "homepage": "/specter-demo/#",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

@@ -1,0 +1,27 @@
+.title {
+  font-weight: bold;
+  font-size: 4rem;
+  margin-right: auto;
+}
+
+.title.tablet {
+  font-size: 3rem;
+}
+
+.title.mobile {
+  font-size: 2rem;
+}
+
+.rank {
+  background: linear-gradient(160deg, var(--brand-pink) 40%, var(--brand-yellow) 90%);
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+  font-weight: bold;
+  font-size: 2rem;
+  position: relative;
+}
+.rank::before {
+  content: "#";
+}

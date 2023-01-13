@@ -23,7 +23,7 @@
 }
 
 .nav_link.active {
-  background-color: var(--brand-pink) 11;
+  background-color: rgba(var(--brand-pink-rgb), 0.1);
 }
 
 .nav_link span {

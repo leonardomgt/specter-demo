@@ -1,11 +1,24 @@
 .filter {
   padding: var(--padding-content);
 
-  display: flex;
+  display: grid;
   gap: 1rem;
   align-items: center;
+  grid-template-columns: auto auto 1fr 1fr;
+}
+
+.filter.mobile {
+  grid-template-columns: 1fr;
+}
+
+.filter.tablet {
+  grid-template-columns: repeat(2, auto);
 }
 
 .industry_filter {
-  min-width: 250px;
+  min-width: 245px;
+}
+
+.range_slider.double_span {
+  grid-column: span 2;
 }

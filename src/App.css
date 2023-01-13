@@ -9,8 +9,19 @@
   --success: #11993c;
   --danger: #d22020;
 
-  --brand-pink: #ee4e95;
-  --brand-yellow: #fcc301;
+  /* #ee4e95 */
+  --brand-pink-rgb: 238, 78, 149;
+  --brand-pink: rgb(var(--brand-pink-rgb));
+
+  /* #fcc301 */
+  --brand-yellow-rgb: 252, 195, 1;
+  --brand-yellow: rgb(var(--brand-yellow-rgb));
+
+  --breakpoint-xs: 576px;
+  --breakpoint-sm: 768px;
+  --breakpoint-md: 992px;
+  --breakpoint-lg: 1200px;
+  --breakpoint-xl: 1400px;
 }
 
 * {
@@ -27,14 +38,4 @@ a:focus,
 a:active {
   text-decoration: none;
   color: inherit;
-}
-
-#root {
-  display: grid;
-  grid-template-columns: 270px 1fr;
-  grid-template-rows: auto 1fr;
-  grid-template-areas:
-    "side main"
-    "side main";
-  height: 100vh;
 }

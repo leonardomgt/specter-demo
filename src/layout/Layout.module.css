@@ -2,6 +2,24 @@
   --padding-content: 2rem;
 }
 
+.layout {
+  display: grid;
+  grid-template-columns: 270px 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "side main"
+    "side main";
+  height: 100vh;
+}
+
+.layout.mobile {
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "main"
+    "main";
+}
+
 .main {
   grid-area: main;
   overflow-y: auto;

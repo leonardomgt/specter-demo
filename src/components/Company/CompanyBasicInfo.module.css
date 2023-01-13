@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.container.vertical {
+  flex-direction: column;
+  align-items: flex-start;
+}

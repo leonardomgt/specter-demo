@@ -1,4 +1,5 @@
 import { RangeSlider as RangeSliderComponent, RangeSliderProps } from "@mantine/core";
+import cn from "classnames";
 import { useCallback } from "react";
 
 import { logBaseN } from "src/utils";
@@ -6,6 +7,7 @@ import { logBaseN } from "src/utils";
 import styles from "./RangeSlider.module.css";
 
 type Props = {
+  className?: RangeSliderProps["className"];
   label: string;
   value: [number, number];
   scale?: (value: number) => number;
@@ -20,16 +22,18 @@ type Props = {
   rangeMinDiff?: number;
   openMin?: number;
   openMax?: number;
+  w?: RangeSliderProps["w"];
 };
 
 const RangeSlider = ({
+  className,
   label,
   value,
   onChange,
   onChangeEnd,
   min,
   max,
-  color = "pink",
+  color = "brandPink.0",
   marks,
   labelFormatter,
   rangeMinDiff = 1,
@@ -47,10 +51,10 @@ const RangeSlider = ({
   );
 
   return (
-    <div className={styles.container}>
+    <div className={cn(styles.container, className)}>
       <p className={styles.label}>{label}</p>
       <RangeSliderComponent
-        w={300}
+        // w={w}
         value={value?.map(encode) as [number, number]}
         onChange={(v: [number, number]) => onChange?.(v.map(decode) as [number, number])}
         onChangeEnd={(value: [number, number]) => {

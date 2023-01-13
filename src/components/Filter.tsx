@@ -2,9 +2,11 @@
 import { MultiSelect, TextInput } from "@mantine/core";
 import { useDebouncedValue } from "@mantine/hooks";
 import { IconFilter, IconSearch } from "@tabler/icons";
+import classNames from "classnames";
 import { useEffect, useState } from "react";
 
 import { employee_count_range, founded_year_range, industries } from "src/api/companies";
+import { useMatchBreakpoint } from "src/hooks/useMatchBreakpoint";
 import { useRouterParam } from "src/hooks/useRouterParam";
 import { nFormatter } from "src/utils";
 
@@ -15,6 +17,11 @@ const Filter = () => {
   const [searchParam, setSearchParam] = useRouterParam("search");
   const [searchInput, setSearchInput] = useState(searchParam);
   const [value] = useDebouncedValue(searchInput, 200);
+
+  const isXS = useMatchBreakpoint("xs");
+  const isSM = useMatchBreakpoint("sm");
+  const isMD = useMatchBreakpoint("md");
+  const isXL = useMatchBreakpoint("xl");
 
   useEffect(() => {
     setSearchParam(value);
@@ -34,7 +41,12 @@ const Filter = () => {
   ]);
 
   return (
-    <aside className={styles.filter}>
+    <aside
+      className={classNames(styles.filter, {
+        [styles.tablet]: isXS && !isXL,
+        [styles.mobile]: !isXS,
+      })}
+    >
       <TextInput
         placeholder="Search"
         icon={<IconSearch size={16} stroke={1.5} />}
@@ -52,6 +64,7 @@ const Filter = () => {
         clearable
       />
       <RangeSlider
+        className={classNames(styles.range_slider, { [styles.double_span]: isSM && !isMD })}
         label="Founded year"
         value={foundedYearValue}
         onChange={setFoundedYearValue}
@@ -68,6 +81,7 @@ const Filter = () => {
         rangeMinDiff={1}
       />
       <RangeSlider
+        className={classNames(styles.range_slider, { [styles.double_span]: isSM && !isMD })}
         label="Employee count"
         value={employeeCountValue}
         onChange={setEmployeeCountValue}

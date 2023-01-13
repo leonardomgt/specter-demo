@@ -1,5 +1,5 @@
 import { useInfiniteCompanies } from "src/api/companies";
-import { CompanyCard, CompanyCardSkeleton } from "src/components/CompanyCard";
+import { CompanyCard, CompanyCardSkeleton } from "src/components/Company/CompanyCard";
 import Filter from "src/components/Filter";
 import Header from "src/layout/Header";
 import EndOfFeed from "src/layout/components/EndOfFeed";
