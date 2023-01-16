@@ -33,3 +33,12 @@ export const groupBy = <T extends Record<string, any>>(arr: T[], prop: string) =
     (acc[val[prop]] = acc[val[prop]] || []).push(val);
     return acc;
   }, {} as Record<string, T[]>);
+
+export const countOccurrences = (arr: any[], val: any) =>
+  arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
+
+export const nthOccurrence = (array: any[], index: number) => {
+  const subArray = array.slice(0, index + 1);
+
+  return countOccurrences(subArray, array[index]);
+};

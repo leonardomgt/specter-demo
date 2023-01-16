@@ -1,10 +1,11 @@
 import { Badge, Flex, Skeleton } from "@mantine/core";
 import cn from "classnames";
-import { useMemo } from "react";
+import { parse } from "date-fns";
+import { Fragment, useMemo } from "react";
 
 import { useMatchBreakpoint } from "src/hooks/useMatchBreakpoint";
 import { Company } from "src/types";
-import { groupBy } from "src/utils";
+import { groupBy, nthOccurrence } from "src/utils";
 
 import { LabelValue } from "../LabelValue";
 import SocialLinks from "../SocialLinks";
@@ -66,7 +67,7 @@ export const CompanyPageContent = ({ company }: { company: Company }) => {
                 key.includes("in USD")
                   ? CurrencyFormatter.format(company[key])
                   : key.includes("Date")
-                  ? DateFormatter.format(new Date(company[key]))
+                  ? DateFormatter.format(parse(company[key], "yyyy-MMM-dd", new Date()))
                   : company[key]
               }
             />
@@ -75,12 +76,15 @@ export const CompanyPageContent = ({ company }: { company: Company }) => {
         <div className={styles.investments}>
           <h3>Investments</h3>
           {Object.entries(groupedInvestments).map(([market, investments]) => (
-            <>
+            <Fragment key={market}>
               <h4>{market}</h4>
               <div key={market} className={styles.investors_list}>
-                {investments.map(({ investor }) => (
+                {investments.map(({ investor }, idx) => (
                   <Badge
-                    key={investor}
+                    key={`${market}-${investor}-${nthOccurrence(
+                      investments.map((inv) => inv.investor),
+                      idx
+                    )}`}
                     className={styles.investor}
                     size="lg"
                     radius="sm"
@@ -90,7 +94,7 @@ export const CompanyPageContent = ({ company }: { company: Company }) => {
                   </Badge>
                 ))}
               </div>
-            </>
+            </Fragment>
           ))}
         </div>
       </div>
