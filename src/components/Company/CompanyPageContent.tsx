@@ -65,13 +65,14 @@ export const CompanyPageContent = ({ company }: { company: Company }) => {
             <LabelValue
               key={key}
               label={key}
-              value={
-                key.includes("in USD")
-                  ? CurrencyFormatter.format(company[key])
-                  : key.includes("Date")
-                  ? DateFormatter.format(parse(company[key], "yyyy-MMM-dd", new Date()))
-                  : company[key]
-              }
+              value={((key) => {
+                if (key.includes("in USD")) return CurrencyFormatter.format(company[key] || 0);
+                else if (key.includes("Date"))
+                  return company[key]
+                    ? DateFormatter.format(parse(company[key], "yyyy-MMM-dd", new Date()))
+                    : "N/A";
+                else return company[key] || "N/A";
+              })(key)}
             />
           ))}
         </div>
