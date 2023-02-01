@@ -34,6 +34,11 @@
   gap: 01rem;
 }
 
+.no_investments {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
 .investors_list {
   display: flex;
   flex-wrap: wrap;

@@ -39,11 +39,13 @@ export const CompanyPageContent = ({ company }: { company: Company }) => {
 
   const DateFormatter = useMemo(() => new Intl.DateTimeFormat("en-US"), []);
 
-  const investments = Investors.split(", ").map((investment) => {
-    const [investor, action] = investment.split(" in ");
-    const [market, company] = action.split(" - ");
-    return { investor: investor.replace(" investment", ""), market, company };
-  });
+  const investments = Investors
+    ? Investors.split(", ").map((investment) => {
+        const [investor, action] = investment.split(" in ");
+        const [market, company] = action.split(" - ");
+        return { investor: investor.replace(" investment", ""), market, company };
+      })
+    : [];
 
   const groupedInvestments = groupBy(investments, "market");
 
@@ -75,27 +77,31 @@ export const CompanyPageContent = ({ company }: { company: Company }) => {
         </div>
         <div className={styles.investments}>
           <h3>Investments</h3>
-          {Object.entries(groupedInvestments).map(([market, investments]) => (
-            <Fragment key={market}>
-              <h4>{market}</h4>
-              <div key={market} className={styles.investors_list}>
-                {investments.map(({ investor }, idx) => (
-                  <Badge
-                    key={`${market}-${investor}-${nthOccurrence(
-                      investments.map((inv) => inv.investor),
-                      idx
-                    )}`}
-                    className={styles.investor}
-                    size="lg"
-                    radius="sm"
-                    variant="outline"
-                  >
-                    {investor}
-                  </Badge>
-                ))}
-              </div>
-            </Fragment>
-          ))}
+          {Investors ? (
+            Object.entries(groupedInvestments).map(([market, investments]) => (
+              <Fragment key={market}>
+                <h4>{market}</h4>
+                <div key={market} className={styles.investors_list}>
+                  {investments.map(({ investor }, idx) => (
+                    <Badge
+                      key={`${market}-${investor}-${nthOccurrence(
+                        investments.map((inv) => inv.investor),
+                        idx
+                      )}`}
+                      className={styles.investor}
+                      size="lg"
+                      radius="sm"
+                      variant="outline"
+                    >
+                      {investor}
+                    </Badge>
+                  ))}
+                </div>
+              </Fragment>
+            ))
+          ) : (
+            <p className={styles.no_investments}>No investments were found.</p>
+          )}
         </div>
       </div>
       <div className={styles.charts}>
